@@ -1,22 +1,20 @@
 NAME = philo
 
 C_FILES = main.c\
+			utils.c\
+			parthing.c\
 
 SRCS = $(addprefix srcs/,$(C_FILES))
 
-CFLAGS = -Wall -Werror -Wextra -I -g includes/
-
-DEPS = $(addprefix lib/,$(LIB))
+CFLAGS = -Wall -Werror -Wextra -I includes/
 
 all: ${NAME}
 
 ${NAME}: ${SRCS}
-	make -C lib/libft
-	make -C lib/ft_printf
-	cc ${CFLAGS} ${SRCS} -o ${NAME} ${DEPS}
+	cc ${CFLAGS} ${SRCS} -o ${NAME}
 
 clean:
-		rm -rf ${OBJS}
+		@printf "FREE PALESTINE\n"
 
 fclean:	clean
 		rm -rf ${NAME}
