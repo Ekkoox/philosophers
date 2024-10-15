@@ -6,7 +6,7 @@ C_FILES = main.c\
 
 SRCS = $(addprefix srcs/,$(C_FILES))
 
-CFLAGS = -Wall -Werror -Wextra -I includes/
+CFLAGS = -Wall -Werror -Wextra -I includes/ -g
 
 all: ${NAME}
 
