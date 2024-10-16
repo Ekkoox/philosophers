@@ -6,7 +6,7 @@
 /*   By: enschnei <enschnei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:15:21 by enschnei          #+#    #+#             */
-/*   Updated: 2024/09/05 19:12:21 by enschnei         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:34:52 by enschnei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,31 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (res * sign);
+}
+
+static void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		(((char *)s)[i] = '\0');
+		i++;
+	}
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	unsigned char	*tmp;
+
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	if ((nmemb * size) < nmemb || (nmemb * size) < size)
+		return (NULL);
+	tmp = malloc(nmemb * size);
+	if (!tmp)
+		return (tmp);
+	ft_bzero(tmp, (nmemb * size));
+	return (tmp);
 }

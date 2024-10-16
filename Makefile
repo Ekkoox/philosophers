@@ -2,6 +2,7 @@ NAME = philo
 
 C_FILES = main.c\
 			utils.c\
+			routine.c\
 			parthing.c\
 
 SRCS = $(addprefix srcs/,$(C_FILES))
