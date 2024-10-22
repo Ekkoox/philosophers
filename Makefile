@@ -1,6 +1,7 @@
 NAME = philo
 
 C_FILES = main.c\
+			time.c\
 			utils.c\
 			routine.c\
 			parthing.c\

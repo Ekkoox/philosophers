@@ -6,7 +6,7 @@
 /*   By: enschnei <enschnei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:27:14 by enschnei          #+#    #+#             */
-/*   Updated: 2024/10/16 19:18:02 by enschnei         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:19:36 by enschnei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,32 @@
 typedef struct s_philo
 {
 	int				philosophers;
-	int id;                      // ID du philosophe
-	int time_to_eat;             // Temps pour manger
-	int time_to_sleep;           // Temps pour dormir
-	int time_to_die;             // Temps avant qu'il meure s'il ne mange pas
-	pthread_mutex_t *left_fork;  // Mutex pour la fourchette de gauche
-	pthread_mutex_t *right_fork; // Mutex pour la fourchette de droite
+	int				id;
+	unsigned int				time_to_eat;
+	unsigned int				time_to_sleep;
+	unsigned int				time_to_die;
+	int 			meals_count;
+	unsigned int	startTime;
+	unsigned int	lastEatTime;
 	pthread_mutex_t	*forks;
-	pthread_t 		thread;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t meals_mutex;
+	pthread_t		thread;
+	// t_time			*time;
 }					t_philo;
 
-// ROUTINE
-int 				join_philo(t_philo *philo);
+// Time
+unsigned int 				get_time();
+
+// Routine
+int					join_philo(t_philo *philo);
 int					destroy_philo(t_philo *philo);
-int	                init_philo(t_philo *philo, char **av);
-void	            *philosopher_routine(void *param);
+int					init_philo(t_philo *philo, char **av);
+void				*philosopher_routine(void *param);
 
 // Parthing
-int                 check_arguments(int ac);
+int					check_arguments(int ac);
 int					check_format_arguments(int ac, char **av);
 
 // Utils

@@ -6,7 +6,7 @@
 /*   By: enschnei <enschnei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:49:05 by enschnei          #+#    #+#             */
-/*   Updated: 2024/09/06 14:50:06 by enschnei         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:19:52 by enschnei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,8 @@ int	check_format_arguments(int ac, char **av)
 		exit (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
+
+// int death_philo(t_philo *philo)
+// {
+	
+// }
