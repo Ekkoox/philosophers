@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parthing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enschnei <enschnei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:49:05 by enschnei          #+#    #+#             */
-/*   Updated: 2024/10/22 19:19:52 by enschnei         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:43:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int check_arguments(int ac)
 	return (EXIT_SUCCESS);
 }
 
-int	check_format_arguments(int ac, char **av)
+int	check_format_arguments(char **av)
 {
 	int	flag;
 
@@ -32,32 +32,28 @@ int	check_format_arguments(int ac, char **av)
 		flag += 1;
 		ft_putstr_fd("The number of philosopher must be positive\n", 2);
 	}
-	if (ft_atoi(av[2]) < 60)
-	{
-		flag += 1;
-		ft_putstr_fd("The time to die must be greater or equal to 60ms\n", 2);
-	}
-	if (ft_atoi(av[3]) < 60)
-	{
-		flag += 1;
-		ft_putstr_fd("The time to eat must be greater or equal to 60ms\n", 2);
-	}
-	if (ft_atoi(av[4]) < 60)
-	{
-		flag += 1;
-		ft_putstr_fd("The time to sleep must be greater or equal to 60ms\n", 2);
-	}
-	if (ac == 6 && ft_atoi(av[5]) < 1)
-	{
-		flag += 1;
-		ft_putstr_fd("The number of times the philosopher eat must be positive\n", 2);
-	}
 	if (flag > 0)
 		exit (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-// int death_philo(t_philo *philo)
-// {
-	
-// }
+void	check_death(t_philo *philo) 
+{
+    int i;
+
+    i = 0;    
+	while (1) 
+    {
+		while (i < philo->philosophers) 
+        {
+			if (philo[i].lastEatTime != (unsigned int)-1 && get_time() - philo[i].lastEatTime >= philo[i].time_to_die) 
+            {
+				printf("%d MORT A %u\n", philo[i].id, get_time() - philo[i].lastEatTime);
+				return;
+			}
+            i++;
+		}
+		usleep(1000);
+	}
+}
+
