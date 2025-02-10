@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enschnei <enschnei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:27:14 by enschnei          #+#    #+#             */
-/*   Updated: 2024/12/19 19:54:34 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/10 19:35:00 by enschnei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 typedef struct s_philo
 {
 	int				id;
-	int				philosophers;
 	int 			meals_count;
+	int				philosophers;
+	int 			meals_required;
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
 	unsigned int	time_to_die;
@@ -42,7 +43,7 @@ unsigned int 				get_time();
 
 // Routine
 int					destroy_philo(t_philo *philo);
-int					init_philo(t_philo *philo, char **av);
+int					init_philo(t_philo *philo, int ac, char **av);
 void				check_death(t_philo *philo);
 void				*philosopher_routine(void *param);
 

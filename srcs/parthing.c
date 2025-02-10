@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parthing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enschnei <enschnei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:49:05 by enschnei          #+#    #+#             */
-/*   Updated: 2024/12/19 19:43:00 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/10 18:51:44 by enschnei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,59 @@ int	check_format_arguments(char **av)
 	return (EXIT_SUCCESS);
 }
 
-void	check_death(t_philo *philo) 
+// void	check_death(t_philo *philo) 
+// {
+//     int i;
+
+//     i = 0;    
+// 	while (1) 
+//     {
+// 		while (i < philo->philosophers) 
+//         {
+// 			if (philo[i].lastEatTime != (unsigned int)-1 && get_time() - philo[i].lastEatTime >= philo[i].time_to_die) 
+//             {
+// 				printf("%d dead at %u\n", philo[i].id, get_time() - philo[i].lastEatTime);
+// 				return;
+// 			}
+//             i++;
+// 		}
+// 		usleep(1000);
+// 	}
+// }
+
+void check_death(t_philo *philo) 
 {
     int i;
+    int finished_eating;
 
-    i = 0;    
-	while (1) 
+    while (1) 
     {
-		while (i < philo->philosophers) 
+        i = 0;
+        finished_eating = 0;
+        // printf("meals required %d\n", philo->meals_required);
+        while (i < philo->philosophers) 
         {
-			if (philo[i].lastEatTime != (unsigned int)-1 && get_time() - philo[i].lastEatTime >= philo[i].time_to_die) 
+            pthread_mutex_lock(&philo[i].meals_mutex);
+            if (philo->meals_required > 0 && philo[i].meals_count >= philo->meals_required)
+                finished_eating++;
+            pthread_mutex_unlock(&philo[i].meals_mutex);
+            // if (philo[i].lastEatTime != (unsigned int)-1 
+            //     && get_time() - philo[i].lastEatTime >= philo[i].time_to_die) 
+            // {
+            //     printf("%d %u died\n", philo[i].id, get_time() - philo[i].lastEatTime);
+            //     return;
+            // }
+            if (finished_eating == philo->philosophers)
             {
-				printf("%d MORT A %u\n", philo[i].id, get_time() - philo[i].lastEatTime);
-				return;
-			}
+                usleep(5000);
+                pthread_mutex_lock(&philo[i].meals_mutex);
+                printf("All philosophers have eaten enough times. Stopping simulation.\n");
+                pthread_mutex_unlock(&philo[i].meals_mutex);
+                exit(0);
+            }
             i++;
-		}
-		usleep(1000);
-	}
+        }
+        // printf("finished_eating = %d\n", finished_eating);
+        usleep(1000);
+    }
 }
-
